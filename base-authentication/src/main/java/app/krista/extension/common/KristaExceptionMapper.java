@@ -13,10 +13,13 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package app.krista.extension.common;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.WebApplicationException;
@@ -25,6 +28,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
 public class KristaExceptionMapper implements ExceptionMapper<Exception> {
+
+    private static final Logger logger = LoggerFactory.getLogger(KristaExceptionMapper.class);
 
     private final String extensionType;
 
@@ -35,7 +40,7 @@ public class KristaExceptionMapper implements ExceptionMapper<Exception> {
     @Override
     public Response toResponse(Exception exception) {
         String message = exception.getMessage() == null ? "Authentication failure" : exception.getMessage();
-        exception.printStackTrace();
+        logger.error("Exception occurred in {}: {}", extensionType, message, exception);
         int statusCode = 500;
         if (exception instanceof NotFoundException) {
             statusCode = 404;
@@ -47,8 +52,9 @@ public class KristaExceptionMapper implements ExceptionMapper<Exception> {
         if (exception instanceof WebApplicationException) {
             statusCode = ((WebApplicationException) exception).getResponse().getStatus();
         }
+        String clientMessage = (statusCode >= 500) ? "Internal server error" : message;
         return Response.status(statusCode).type(MediaType.APPLICATION_JSON)
-                .entity(new KristaError(message, extensionType + "- " + statusCode)).build();
+                .entity(new KristaError(clientMessage, extensionType + "-" + statusCode)).build();
     }
 
 }

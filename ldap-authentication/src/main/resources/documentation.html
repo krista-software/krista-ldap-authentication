@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<center><h1>Ldap Authentication Extension Documentation</h1></center>
+This is an authentication extension for Open LDAP protocol.<br>
+This extension supports only 'Simple' authentication method with 'user/password' type of authentication operation.<br>
+Authenticated access is requested by providing a valid name and password.<br>
+After successful authentication from LDAP server extension will fetch user's profile with matching email address and phone number properties. <br>
+If LDAP user's entry doesn't have email address property this authentication extension will throw related errors as for <br>
+Krista platform  'Email'  property is a required field. <br>
+NOTE:This extension is not taking care of any ldap roles. All ldap users are mapped to 'Default Role' defined in invoker parameters.<br>
+<hr>
+<h3>Ldap Server URL</h3>
+<P2>
+    An LDAP URL is a string that can be used to encapsulate the address and port of a directory server, <br>
+  the DN of an entry within that server, or the criteria for performing a search within that server. <br>
+  Example: ldap://myldap.example.com
+</P2>
+</hr>
+<hr>
+<h3>Base DN</h3>
+<P2>
+  This property define base distinguished name (DN) for LDAP server. <br>
+  All ldap search requests include the base DN element and the wholeSubtree scope (often referred to as “sub”) indicates <br>
+  that the entry specified as the search base DN and all entries below it (to any depth) should be considered.</P2>
+</hr>
+<hr>
+<h3>Bind DN</h3>
+<P2>
+  This property defines the admin bindDN DN credential you are using to authenticate against an LDAP.<br>
+  In other words when you specify a bindDN you are using that object security access to go through the LDAP tree<br>
+</P2>
+</hr>
+<hr>
+<h3>Bind DN Password</h3>
+<P2>
+  Bind DN password to authenticate and access LDAP tree.
+</P2>
+</hr>
+<hr>
+<h3>Default Role</h3>
+<P2>
+  The default role assigned to all LDAP user's if not present in workspace. The default value is 'Krista Client User'
+</P2>
+</hr>
+<hr>
+<h3>Email Property</h3>
+<P2>
+  Name of the email property which can be mapped with ldap user's email address. This is a required field.
+  <br>If not provided default value will be 'mail'.
+</P2>
+</hr>
+<hr>
+<h3>Phone Property</h3>
+<P2>
+  Name of the telephone number property which can be mapped with ldap user's phone number. This is a optional field.
+  <br>If not provided default value will be 'telephoneNumber'.
+</P2>
+</hr>
+</body>
+</html>
