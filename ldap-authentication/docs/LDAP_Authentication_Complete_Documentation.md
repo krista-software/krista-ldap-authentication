@@ -445,7 +445,7 @@ phoneNumber            (Custom attribute)
   "LDAP_SERVER_URL": "ldaps://ldap.company.com:636",
   "BASE_DN": "ou=users,dc=company,dc=com",
   "BIND_DN": "cn=krista-service,ou=services,dc=company,dc=com",
-  "BIND_DN_PASSWORD": "SecureP@ssw0rd123!",
+  "BIND_DN_PASSWORD": "REDACTED_SECRET",
   "DEFAULT_ROLE": "LDAP Authenticated User",
   "MAPPED_EMAIL_PROPERTY": "mail",
   "MAPPED_PHONE_PROPERTY": "telephoneNumber"
@@ -622,7 +622,7 @@ public Response loginOptions(@Context HttpHeaders headers, String email) {
 ```json
 {
   "userName": "john.doe",
-  "password": "userPassword123"
+  "password": "REDACTED_SECRET"
 }
 ```
 
@@ -641,7 +641,7 @@ Content-Type: application/json
 
 {
   "userName": "john.doe",
-  "password": "SecurePass123!"
+  "password": "REDACTED_SECRET"
 }
 ```
 
@@ -973,7 +973,7 @@ These are default implementations and not used by the authentication logic.
 POST /extensions/invoker-id/authn/login
 Content-Type: application/json
 
-{"userName": "john.doe", "password": "SecurePass123!"}
+{"userName": "john.doe", "password": "REDACTED_SECRET"}
 ```
 
 **Step 3: LdapAuthenticationResource Receives Request**
@@ -3216,7 +3216,7 @@ public void setupMockLdapServer() {
 ```bash
 curl -X POST https://krista.company.com/extensions/invoker/authn/login \
   -H "Content-Type: application/json" \
-  -d '{"userName":"john.doe","password":"SecurePass123!"}'
+  -d '{"userName":"john.doe","password":"REDACTED_SECRET"}'
 ```
 
 **Expected Response**:
